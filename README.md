@@ -2,78 +2,99 @@
 
 # Data Types
 
-You have to declare datatypes to initialize a variable
+Βασική σύνταξη και δομές
 
 ```c
-int x;
-int y = 5;
-float z = 4.5;
+string a = "test";
+int b = 6;
+float c = 4.5;
+float d = 2; // error
+```
+#Polymorfism
+
+```c
+def point2d() {
+  object o = object();
+  float o.x = 0.0;
+  float o.y = 0.0;
+  return o;
+  }
+def point2d(float x, float y) {
+  object o = object();
+  float o.x = x;
+  float o.y = y;
+  return o;
+  }
+def point2d(int x, int y) {
+  object o = object();
+  int o.x = x;
+  int o.y = y;
+  return o;
+  }
+point2d a = point2d();
+point2d b = point2d(2.0, 3.0);
+point2d c = point2d(2, 3);
+
 ```
 
-you can also use the keyword var and the compiler will determine the type base on the expression used to initialize the variable
-
+#Access function member
 ```c
-var x = 5; //int
-
-var y = "hello" //string
-
-var z = 5 + "items" //string (string concat)
+float a = test().result //1
+float b = test(2.0, 3.0).result // 5
+float c = test(2,3).result // 6
 ```
+#Downcasting
 
-#Blocks
-#Blocks as Functions
-A block can be called as a function as shown below. self.x : int is used to declare the type of x.
-```c
-
-def norm(int x, int y){
-                          object self = object();
-                          return self.x * self.y;
-                      }      
-def vector(int x, int y){
-                          object self = object();
-                          int self.x = x;
-                          int self.y = y;
-                          int self(self.x,self.y);
-                        
-                        }
-
-vector a = vector(3,2);
-var z = vector.x + vector.y;
-#print(z); //this should be 5
-#print(norm.a); //this should print 6
-
-```
-#Blocks as Code
-
-If a code block is called after the key symbol & then the code inside the block runs as is.
 
 ```c
-def addition(int x,int y){
-                          int x = x + 5;
-                          int y = x + 4;
-                          #print(y);
-                         }
+def vector() {
+  object o = object();
+  return o;
+  }
+def vector2d(float x, float y) {
+  vector o = vector();
+  float o.x = x;
+  float o.y = y;
+  return o;
+  }
+def vector3d(float x, float y, float z) {
+  vector2d o = vector2d(x, y);
+  o.x = o.x + 1; // we can do that
+  float o.z = z;
+  return o;
+  }
 
+vector3d c = vector3d(1, 2, 3);
+vector a = vector3d(1, 2, 3);
+vector b = vector2d(1, 2);
 
-var x = 2;
-#print(x); //should print 2
+print(a.z); // error by static checks, not by interpreter
+a.z = a.z+1; // error by static checks, not by interpreter
 
-&addition; //should print 11
-```
-
-#Shadowing
-You can declare a new variable with the same name as a previous one.The second variable overshadows the first, taking any uses of the variable name to itself until either it itself is shadowed or the scope ends.
-
-```c
-var x = 5;
-#print(x); //5
-
-var x = x +2;
-#print(x); //7
-
-sum {
-    var x = x+3;
+def norm(vector2d a) { // give access again to private fields
+return a.x+a.y;
 }
-#print(sum); //10
-#print(x); //7
+def norm(vector3d a) {
+return a.x+a.y+a.z;
+}
+norm(a); // 6
+norm(b); // 3
+
+```
+
+#Loops
+
+If statement
+```c
+int x = 1;
+if x>0:
+{print("positive");}
+else:
+{print("negative");}
+```
+
+While Loop
+```c
+while b<=8: {b = b+1; print(“variable incremented”);}
+
 ```
